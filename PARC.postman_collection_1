@@ -1,0 +1,991 @@
+{
+	"info": {
+		"_postman_id": "06de0979-9ad8-4928-915b-23ed57de6b46",
+		"name": "PARC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get Person Details (me) ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "74bc245f-0686-4669-ac38-4bad3a1dc927",
+								"exec": [
+									"if (responseCode.code != 200) {",
+									"    tests[\"Get person details: failed\"] = false;",
+									"}",
+									"else {",
+									"    tests[\"Get person details: success\"] = true;",
+									"    ",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    if (jsonData.id === undefined) {",
+									"        tests[\"Create a person: cannot retreive result\"] = false",
+									"    }",
+									"    else {",
+									"        var email = jsonData.emails[0];",
+									"        var parsed = email.match(/\\@(.*)$/);",
+									"        var domain = parsed[1];",
+									"        postman.setEnvironmentVariable(\"_domain\", domain);",
+									"        tests[\"Create a person: retreived domain: \" + domain] = true",
+									"    }",
+									"}",
+									"",
+									"",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "263d0744-ec80-4b24-a3ad-2e2bc62bca25",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer ZGVmZGFkNWItN2IxMS00NGUzLWE2MWUtNmRlZjcyNDg2YmM0ZDg2MWU3NWUtMGRm_PF84_0fbd1c6c-a47c-483e-98db-c53aeefc4680"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "https://api.ciscospark.com/v1/people/me",
+							"protocol": "https",
+							"host": [
+								"api",
+								"ciscospark",
+								"com"
+							],
+							"path": [
+								"v1",
+								"people",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List People",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ba7a72b3-768b-47ef-a821-076162ef34c3",
+								"exec": [
+									"if (responseCode.code != 200) {",
+									"    tests[\"Get person details: failed\"] = false;",
+									"}",
+									"else {",
+									"    tests[\"Get person details: success\"] = true;",
+									"    ",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    if (jsonData.id === undefined) {",
+									"        tests[\"Get person details: cannot retreive result\"] = false",
+									"    }",
+									"    else {",
+									"        ",
+									"        var orgId = jsonData.orgId;",
+									"        postman.setEnvironmentVariable(\"_organization\", orgId);",
+									"        tests[\"Get person details: retreived org with id:\" + orgId] = true",
+									"        ",
+									"        var email = jsonData.emails[0];",
+									"        postman.setEnvironmentVariable(\"_email\", email);",
+									"        tests[\"Get person details: retreived email:\" + email] = true",
+									"    }",
+									"}",
+									"",
+									"",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer ZGVmZGFkNWItN2IxMS00NGUzLWE2MWUtNmRlZjcyNDg2YmM0ZDg2MWU3NWUtMGRm_PF84_0fbd1c6c-a47c-483e-98db-c53aeefc4680"
+							}
+						],
+						"url": {
+							"raw": "https://api.ciscospark.com/v1/people",
+							"protocol": "https",
+							"host": [
+								"api",
+								"ciscospark",
+								"com"
+							],
+							"path": [
+								"v1",
+								"people"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "22817ba7-fd97-4e57-b266-7967133398e7",
+								"exec": [
+									"if (responseCode.code != 204) {",
+									"    tests[\"Delete person: failed\"] = false;",
+									"}",
+									"else {",
+									"    tests[\"Delete person: success\"] = true;",
+									"}",
+									"    ",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YmVlZWZjNDctMDc3YS00YjAwLTkzMjgtY2NmNWM3MDIyY2RkNGU0MmY2YzYtMmIy_PF84_0fbd1c6c-a47c-483e-98db-c53aeefc4680"
+							}
+						],
+						"url": {
+							"raw": "https://api.ciscospark.com/v1/people/me",
+							"protocol": "https",
+							"host": [
+								"api",
+								"ciscospark",
+								"com"
+							],
+							"path": [
+								"v1",
+								"people",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Places",
+			"item": [
+				{
+					"name": "List Places",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ba7a72b3-768b-47ef-a821-076162ef34c3",
+								"exec": [
+									"if (responseCode.code != 200) {",
+									"    tests[\"List places : failed\"] = false;",
+									"}",
+									"else {",
+									"    tests[\"List places: success\"] = true;",
+									"    ",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    if (jsonData.items === undefined) {",
+									"        tests[\"List places: cannot retreive result\"] = false",
+									"    }",
+									"    else {",
+									"        var placeId = jsonData.items[0].id;",
+									"        postman.setEnvironmentVariable(\"_place\", placeId);",
+									"        tests[\"List places: retreived one place with id:\" + placeId] = true",
+									"    }",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YTFmODI1ZjYtZDAwOS00ZDliLTk4ZGUtOTZmZDVkNWMxMzczNTMwZmQxYmItMmMx_PF84_0fbd1c6c-a47c-483e-98db-c53aeefc4680"
+							}
+						],
+						"url": {
+							"raw": "https://api.ciscospark.com/v1/places",
+							"protocol": "https",
+							"host": [
+								"api",
+								"ciscospark",
+								"com"
+							],
+							"path": [
+								"v1",
+								"places"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a  new Place",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ba7a72b3-768b-47ef-a821-076162ef34c3",
+								"exec": [
+									"if (responseCode.code != 200) {",
+									"    tests[\"Create a place: failed\"] = false;",
+									"}",
+									"else {",
+									"    tests[\"Create a place: success\"] = true;",
+									"",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    if (jsonData.id === undefined) {",
+									"        tests[\"Create a place: cannot retreive result\"] = false",
+									"    }",
+									"    else {",
+									"        var placeId = jsonData.id;",
+									"        postman.setEnvironmentVariable(\"_place\", placeId);",
+									"        tests[\"Create a place: created with id:\" + placeId] = true",
+									"    }",
+									"    ",
+									"}",
+									"    ",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YTFmODI1ZjYtZDAwOS00ZDliLTk4ZGUtOTZmZDVkNWMxMzczNTMwZmQxYmItMmMx_PF84_0fbd1c6c-a47c-483e-98db-c53aeefc4680"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n\t\"displayName\" : \"office_1\",\r\n\t\"type\" : \"room_device\"\r\n}"
+						},
+						"url": {
+							"raw": "https://api.ciscospark.com/v1/places",
+							"protocol": "https",
+							"host": [
+								"api",
+								"ciscospark",
+								"com"
+							],
+							"path": [
+								"v1",
+								"places"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Place Details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ba7a72b3-768b-47ef-a821-076162ef34c3",
+								"exec": [
+									"if (responseCode.code != 200) {",
+									"    tests[\"Get place details: failed\"] = false;",
+									"}",
+									"else {",
+									"    tests[\"Get place details: success\"] = true;",
+									"}",
+									"",
+									"",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YTFmODI1ZjYtZDAwOS00ZDliLTk4ZGUtOTZmZDVkNWMxMzczNTMwZmQxYmItMmMx_PF84_0fbd1c6c-a47c-483e-98db-c53aeefc4680"
+							}
+						],
+						"url": {
+							"raw": "https://api.ciscospark.com/v1/places/office",
+							"protocol": "https",
+							"host": [
+								"api",
+								"ciscospark",
+								"com"
+							],
+							"path": [
+								"v1",
+								"places",
+								"office"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Place",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ba7a72b3-768b-47ef-a821-076162ef34c3",
+								"exec": [
+									"if (responseCode.code != 204) {",
+									"    tests[\"Delete place: failed\"] = false;",
+									"}",
+									"else {",
+									"    tests[\"Delete place: success\"] = true;",
+									"}",
+									"    ",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YTFmODI1ZjYtZDAwOS00ZDliLTk4ZGUtOTZmZDVkNWMxMzczNTMwZmQxYmItMmMx_PF84_0fbd1c6c-a47c-483e-98db-c53aeefc4680"
+							}
+						],
+						"url": {
+							"raw": "https://api.ciscospark.com/v1/places/office",
+							"protocol": "https",
+							"host": [
+								"api",
+								"ciscospark",
+								"com"
+							],
+							"path": [
+								"v1",
+								"places",
+								"office"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Room_Request",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ZGVmZGFkNWItN2IxMS00NGUzLWE2MWUtNmRlZjcyNDg2YmM0ZDg2MWU3NWUtMGRm_PF84_0fbd1c6c-a47c-483e-98db-c53aeefc4680",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.ciscospark.com/v1/rooms",
+					"protocol": "https",
+					"host": [
+						"api",
+						"ciscospark",
+						"com"
+					],
+					"path": [
+						"v1",
+						"rooms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new room ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "518501b1-8ca3-4f9d-8aa9-8e686720df75",
+						"exec": [
+							"if (responseCode.code != 200) {",
+							"    tests[\"Create a room: failed\"] = false",
+							"}",
+							"else {",
+							"    tests[\"Create a room: created\"] = true",
+							"",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    if (jsonData.id === undefined) {",
+							"        tests[\"Create a room: cannot retreive identifier\"] = false",
+							"    }",
+							"    else {",
+							"        var roomID = jsonData.id;",
+							"        postman.setEnvironmentVariable(\"_room\", roomID);",
+							"        tests[\"Create a room: created with id:\" + roomID] = true",
+							"    }",
+							"}",
+							"    ",
+							"    ",
+							"    ",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ZGVmZGFkNWItN2IxMS00NGUzLWE2MWUtNmRlZjcyNDg2YmM0ZDg2MWU3NWUtMGRm_PF84_0fbd1c6c-a47c-483e-98db-c53aeefc4680"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"PARC SPACE 2\"\n}"
+				},
+				"url": {
+					"raw": "https://api.ciscospark.com/v1/rooms",
+					"protocol": "https",
+					"host": [
+						"api",
+						"ciscospark",
+						"com"
+					],
+					"path": [
+						"v1",
+						"rooms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a room",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fc23f329-98d6-4650-84a7-1b1730f4186f",
+						"exec": [
+							"if (responseCode.code != 204) {",
+							"    tests[\"Delete a room: failed\"] = false",
+							"}",
+							"else {",
+							"    tests[\"Delete a room: success\"] = true",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ZGVmZGFkNWItN2IxMS00NGUzLWE2MWUtNmRlZjcyNDg2YmM0ZDg2MWU3NWUtMGRm_PF84_0fbd1c6c-a47c-483e-98db-c53aeefc4680"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.ciscospark.com/v1/rooms/{{_room}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"ciscospark",
+						"com"
+					],
+					"path": [
+						"v1",
+						"rooms",
+						"{{_room}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a team (for test run purpose)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7abbdaaf-032e-4e11-b2f7-c0ddb44e40d0",
+						"exec": [
+							"if (responseCode.code != 200) {",
+							"    tests[\"Create a team: failed\"] = false",
+							"}",
+							"else {",
+							"    tests[\"Create a team: created\"] = true",
+							"",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    if (jsonData.id === undefined) {",
+							"        tests[\"Create a team: cannot retreive team identifier\"] = false",
+							"    }",
+							"    else {",
+							"        var teamID = jsonData.id;",
+							"        postman.setEnvironmentVariable(\"_team\", teamID);",
+							"        tests[\"Create a team: created with id:\" + teamID] = true",
+							"    }",
+							"}",
+							"    ",
+							"    ",
+							"    ",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ZGVmZGFkNWItN2IxMS00NGUzLWE2MWUtNmRlZjcyNDg2YmM0ZDg2MWU3NWUtMGRm_PF84_0fbd1c6c-a47c-483e-98db-c53aeefc4680"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"NEW TEAM\"\n}"
+				},
+				"url": {
+					"raw": "https://api.ciscospark.com/v1/teams",
+					"protocol": "https",
+					"host": [
+						"api",
+						"ciscospark",
+						"com"
+					],
+					"path": [
+						"v1",
+						"teams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List team memberships",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "851d78fb-a950-48c9-99d7-df3b974c362f",
+						"exec": [
+							"if (responseCode.code != 200) {",
+							"    tests[\"List rooms: failed\"] = false;",
+							"}",
+							"else {",
+							"    tests[\"List rooms: success\"] = true;",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ZGVmZGFkNWItN2IxMS00NGUzLWE2MWUtNmRlZjcyNDg2YmM0ZDg2MWU3NWUtMGRm_PF84_0fbd1c6c-a47c-483e-98db-c53aeefc4680"
+					}
+				],
+				"url": {
+					"raw": "https://api.ciscospark.com/v1/team/memberships?teamId=Y2lzY29zcGFyazovL3VzL1RFQU0vMGEwYTA2ZTAtMWY3Ny0xMWVhLWI3ZjctYjM0MzcxZGE4ZTRj",
+					"protocol": "https",
+					"host": [
+						"api",
+						"ciscospark",
+						"com"
+					],
+					"path": [
+						"v1",
+						"team",
+						"memberships"
+					],
+					"query": [
+						{
+							"key": "teamId",
+							"value": "Y2lzY29zcGFyazovL3VzL1RFQU0vMGEwYTA2ZTAtMWY3Ny0xMWVhLWI3ZjctYjM0MzcxZGE4ZTRj"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List teams",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9cfdd45e-8dd7-4049-b927-07600b441ccd",
+						"exec": [
+							"if (responseCode.code != 200) {",
+							"    tests[\"List teams: failed\"] = false;",
+							"}",
+							"else {",
+							"    tests[\"List teams: success\"] = true;",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ZGVmZGFkNWItN2IxMS00NGUzLWE2MWUtNmRlZjcyNDg2YmM0ZDg2MWU3NWUtMGRm_PF84_0fbd1c6c-a47c-483e-98db-c53aeefc4680"
+					}
+				],
+				"url": {
+					"raw": "https://api.ciscospark.com/v1/teams",
+					"protocol": "https",
+					"host": [
+						"api",
+						"ciscospark",
+						"com"
+					],
+					"path": [
+						"v1",
+						"teams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List messages",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8f2813b7-17da-486d-9ba7-3756f04270aa",
+						"exec": [
+							"if (responseCode.code != 200) {",
+							"    tests[\"List messages: failed\"] = false;",
+							"}",
+							"else {",
+							"    tests[\"List messages: success\"] = true;",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ZGVmZGFkNWItN2IxMS00NGUzLWE2MWUtNmRlZjcyNDg2YmM0ZDg2MWU3NWUtMGRm_PF84_0fbd1c6c-a47c-483e-98db-c53aeefc4680"
+					}
+				],
+				"url": {
+					"raw": "https://api.ciscospark.com/v1/messages?roomId={{_room}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"ciscospark",
+						"com"
+					],
+					"path": [
+						"v1",
+						"messages"
+					],
+					"query": [
+						{
+							"key": "roomId",
+							"value": "{{_room}}"
+						}
+					]
+				},
+				"description": "Lists all messages in a room. If present, includes the associated media content attachment for each message.\r\n\r\nThe list sorts the messages in descending order by creation date.\r\n\r\nhttps://developer.webex.com/endpoint-messages-get.html"
+			},
+			"response": []
+		},
+		{
+			"name": "List messages",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "305d6e7b-d154-497f-bc8d-cb8f8b4219c8",
+						"exec": [
+							"if (responseCode.code != 200) {",
+							"    tests[\"List messages: failed\"] = false;",
+							"}",
+							"else {",
+							"    tests[\"List messages: success\"] = true;",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ZGVmZGFkNWItN2IxMS00NGUzLWE2MWUtNmRlZjcyNDg2YmM0ZDg2MWU3NWUtMGRm_PF84_0fbd1c6c-a47c-483e-98db-c53aeefc4680"
+					}
+				],
+				"url": {
+					"raw": "https://api.ciscospark.com/v1/messages?roomId={{_room}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"ciscospark",
+						"com"
+					],
+					"path": [
+						"v1",
+						"messages"
+					],
+					"query": [
+						{
+							"key": "roomId",
+							"value": "{{_room}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a message ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "43fdf17a-e221-4080-963e-52361b6e0366",
+						"exec": [
+							"if (responseCode.code != 200) {",
+							"    tests[\"Create a message: failed\"] = false",
+							"}",
+							"else {",
+							"    tests[\"Create a message: created\"] = true",
+							"",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    if (jsonData.id === undefined) {",
+							"        tests[\"Create a message: cannot retreive identifier\"] = false",
+							"    }",
+							"    else {",
+							"        var messageID = jsonData.id;",
+							"        postman.setEnvironmentVariable(\"_message\", messageID);",
+							"        tests[\"Create a message: created with id:\" + messageID] = true",
+							"    }",
+							"}",
+							"    ",
+							"    ",
+							"    ",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ZGVmZGFkNWItN2IxMS00NGUzLWE2MWUtNmRlZjcyNDg2YmM0ZDg2MWU3NWUtMGRm_PF84_0fbd1c6c-a47c-483e-98db-c53aeefc4680"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"roomId\" : \"Y2lzY29zcGFyazovL3VzL1JPT00vMGEwYTA2ZTAtMWY3Ny0xMWVhLWI3ZjctYjM0MzcxZGE4ZTRj\",\r\n  \"text\" : \"hi from Postman\"\r\n}"
+				},
+				"url": {
+					"raw": "https://api.ciscospark.com/v1/messages",
+					"protocol": "https",
+					"host": [
+						"api",
+						"ciscospark",
+						"com"
+					],
+					"path": [
+						"v1",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a message",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dcc527f6-0ac1-4e9b-ab76-8b9c390c76e9",
+						"exec": [
+							"if (responseCode.code != 204) {",
+							"    tests[\"Delete a message: failed\"] = false",
+							"}",
+							"else {",
+							"    tests[\"Delete a message: success\"] = true",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ZGVmZGFkNWItN2IxMS00NGUzLWE2MWUtNmRlZjcyNDg2YmM0ZDg2MWU3NWUtMGRm_PF84_0fbd1c6c-a47c-483e-98db-c53aeefc4680"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.ciscospark.com/v1/messages/Y2lzY29zcGFyazovL3VzL01FU1NBR0UvNmQyMWQ4YTAtMWY3OS0xMWVhLWI3ZjctYjM0MzcxZGE4ZTRj",
+					"protocol": "https",
+					"host": [
+						"api",
+						"ciscospark",
+						"com"
+					],
+					"path": [
+						"v1",
+						"messages",
+						"Y2lzY29zcGFyazovL3VzL01FU1NBR0UvNmQyMWQ4YTAtMWY3OS0xMWVhLWI3ZjctYjM0MzcxZGE4ZTRj"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get message details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b57a3f4-7831-4f5c-b67f-91ef92dab86d",
+						"exec": [
+							"if (responseCode.code != 200) {",
+							"    tests[\"Get message details: failed\"] = false;",
+							"}",
+							"else {",
+							"    tests[\"Get message details: success\"] = true;",
+							"",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    if (jsonData.id === undefined) {",
+							"        tests[\"Get message details: cannot retreive identifier\"] = false;",
+							"    }",
+							"    else {",
+							"        var messageID = jsonData.id;",
+							"        if (messageID != postman.getEnvironmentVariable(\"_message\")) {",
+							"            tests[\"Get message details: wrong id:\" + messageID] = false;",
+							"        }",
+							"        else {",
+							"            tests[\"Get message details: correct id:\" + messageID] = true;",
+							"        }",
+							"    }",
+							"}",
+							"    ",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ZGVmZGFkNWItN2IxMS00NGUzLWE2MWUtNmRlZjcyNDg2YmM0ZDg2MWU3NWUtMGRm_PF84_0fbd1c6c-a47c-483e-98db-c53aeefc4680"
+					}
+				],
+				"url": {
+					"raw": "https://api.ciscospark.com/v1/messages/Y2lzY29zcGFyazovL3VzL01FU1NBR0UvNmQyMWQ4YTAtMWY3OS0xMWVhLWI3ZjctYjM0MzcxZGE4ZTRj",
+					"protocol": "https",
+					"host": [
+						"api",
+						"ciscospark",
+						"com"
+					],
+					"path": [
+						"v1",
+						"messages",
+						"Y2lzY29zcGFyazovL3VzL01FU1NBR0UvNmQyMWQ4YTAtMWY3OS0xMWVhLWI3ZjctYjM0MzcxZGE4ZTRj"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
